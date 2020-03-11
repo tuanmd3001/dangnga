@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import accounting from 'accounting';
-import VueCarousel from 'vue-carousel';
+import VueCarousel from 'vue-owl-carousel';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
 import messagesAr from 'vee-validate/dist/locale/ar';
@@ -36,8 +36,11 @@ Vue.component("add-to-cart", require("./UI/components/add-to-cart"));
 Vue.component('quantity-btn', require('./UI/components/quantity-btn'));
 Vue.component('sidebar-component', require('./UI/components/sidebar'));
 Vue.component("product-card", require("./UI/components/product-card"));
+Vue.component("product-card-dn", require("./UI/components/product-card-dn"));
 Vue.component("wishlist-component", require("./UI/components/wishlist"));
 Vue.component('carousel-component', require('./UI/components/carousel'));
+Vue.component('owl-carousel-wrapper', require('./UI/components/owl-carousel-wrapper'));
+Vue.component('owl-carousel', require('./UI/components/owl-carousel'));
 Vue.component('child-sidebar', require('./UI/components/child-sidebar'));
 Vue.component('card-list-header', require('./UI/components/card-header'));
 Vue.component('magnify-image', require('./UI/components/image-magnifier'));
@@ -54,7 +57,7 @@ $(document).ready(function () {
         data: function () {
             return {
                 'baseUrl': document.querySelector("script[src$='velocity.js']").getAttribute('baseUrl'),
-                'navContainer': false,
+                // 'navContainer': false,
                 'responsiveSidebarTemplate': '',
                 'responsiveSidebarKey': Math.random(),
                 'sharedRootCategories': [],

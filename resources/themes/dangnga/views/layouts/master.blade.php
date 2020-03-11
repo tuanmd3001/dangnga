@@ -8,24 +8,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="format-detection" content="telephone=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Stroyka</title>
     <link rel="icon" type="image/png" href="{{asset('images/favicon.png')}}">
     <!-- fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i">
+
+
     <!-- css -->
     <link rel="stylesheet" href="{{asset('themes/dangnga/assets/vendor/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('themes/dangnga/assets/vendor/owl-carousel/assets/owl.carousel.min.css')}}">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('themes/dangnga/assets/fonts/font-awesome.min.css')}}">
+    {{--    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"--}}
+    {{--          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">--}}
     <link rel="stylesheet" href="{{asset('themes/dangnga/assets/vendor/photoswipe/photoswipe.css')}}">
     <link rel="stylesheet" href="{{asset('themes/dangnga/assets/vendor/photoswipe/default-skin/default-skin.css')}}">
     <link rel="stylesheet" href="{{asset('themes/dangnga/assets/vendor/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('themes/dangnga/assets/css/ovic-mobile-menu.css')}}">
-    <link rel="stylesheet" href="{{asset('themes/dangnga/assets/css/style.css')}}">
     <!-- font - fontawesome -->
     <link rel="stylesheet" href="{{asset('themes/dangnga/assets/vendor/fontawesome/css/all.min.css')}}">
     <!-- font - stroyka -->
     <link rel="stylesheet" href="{{asset('themes/dangnga/assets/fonts/stroyka/stroyka.css')}}">
+
+    <link rel="stylesheet" href="{{asset('themes/dangnga/assets/css/style.css')}}">
+
+    <script
+        type="text/javascript"
+        src="{{ asset('themes/velocity/assets/js/jquery.min.js') }}">
+    </script>
+
+    <script
+        type="text/javascript"
+        baseUrl="{{ url()->to('/') }}"
+        src="{{ asset('themes/velocity/assets/js/velocity.js') }}">
+    </script>
+
+    <script
+        type="text/javascript"
+        src="{{ asset('themes/velocity/assets/js/jquery.ez-plus.js') }}">
+    </script>
 
     @yield('head')
 
@@ -34,6 +54,7 @@
             <meta name="description" content="{{ core()->getCurrentChannel()->description }}"/>
         @endif
     @show
+
 
     @stack('css')
 
@@ -46,8 +67,9 @@
 
 {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
+@include('shop::UI.particals')
 <div id="app" class="site">
-    <flash-wrapper ref='flashes'></flash-wrapper>
+    {{--    <flash-wrapper ref='flashes'></flash-wrapper>--}}
 
     <div class="site__body">
 
@@ -57,7 +79,7 @@
 
         {!! view_render_event('bagisto.shop.layout.header.after') !!}
 
-{{--        @yield('slider')--}}
+        {{--        @yield('slider')--}}
 
 
         {!! view_render_event('bagisto.shop.layout.content.before') !!}
@@ -65,6 +87,12 @@
         @yield('content-wrapper')
 
         {!! view_render_event('bagisto.shop.layout.content.after') !!}
+
+        {!! view_render_event('bagisto.shop.layout.full-content.before') !!}
+
+        @yield('full-content-wrapper')
+
+        {!! view_render_event('bagisto.shop.layout.full-content.after') !!}
 
     </div>
 
@@ -104,16 +132,17 @@
 
         window.serverErrors = [];
     @if(isset($errors))
-        @if (count($errors))
-        window.serverErrors = @json($errors->getMessages());
+        @if(count($errors)) window.serverErrors = @json($errors->getMessages());
     @endif
-    @endif
+        @endif
+        window._translations = @json(app('Webkul\Velocity\Helpers\Helper')->jsonTranslations());
 </script>
 
 <!-- js -->
-<script src="{{asset('themes/dangnga/assets/vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('themes/dangnga/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script baseUrl="{{ url()->to('/') }}" src="{{ asset('themes/velocity/assets/js/velocity.js') }}"></script>
+{{--<script src="{{asset('themes/dangnga/assets/vendor/jquery/jquery.min.js')}}"></script>--}}
+{{--<script src="{{asset('themes/dangnga/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>--}}
+@stack('scripts')
+
 <script src="{{asset('themes/dangnga/assets/vendor/owl-carousel/owl.carousel.min.js')}}"></script>
 <script src="{{asset('themes/dangnga/assets/vendor/nouislider/nouislider.min.js')}}"></script>
 <script src="{{asset('themes/dangnga/assets/vendor/photoswipe/photoswipe.min.js')}}"></script>
@@ -126,8 +155,6 @@
 <script src="{{asset('themes/dangnga/assets/js/mobilemenu.min.js')}}"></script>
 <script src="{{asset('themes/dangnga/assets/vendor/svg4everybody/svg4everybody.min.js')}}"></script>
 <script>svg4everybody();</script>
-
-@stack('scripts')
 
 {!! view_render_event('bagisto.shop.layout.body.after') !!}
 

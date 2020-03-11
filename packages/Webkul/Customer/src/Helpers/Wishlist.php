@@ -47,4 +47,17 @@ class Wishlist
 
         return false;
     }
+
+    public function getWishListCount(){
+        $wishlist = 0;
+
+        if (auth()->guard('customer')->user()) {
+            $wishlist = $this->wishlistRepository->count([
+                'channel_id' => core()->getCurrentChannel()->id,
+                'customer_id' => auth()->guard('customer')->user()->id
+            ]);
+        }
+
+        return $wishlist;
+    }
 }

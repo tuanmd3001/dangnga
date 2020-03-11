@@ -26,7 +26,7 @@ class Grouped extends AbstractType
      * @var ProductGroupedProductRepository
      */
     protected $productGroupedProductRepository;
-    
+
     /**
      * Skip attribute for downloadable product type
      *
@@ -36,7 +36,7 @@ class Grouped extends AbstractType
 
     /**
      * These blade files will be included in product edit page
-     * 
+     *
      * @var array
      */
     protected $additionalViews = [
@@ -150,8 +150,7 @@ class Grouped extends AbstractType
      */
     public function getPriceHtml()
     {
-        return '<span class="price-label">' . trans('shop::app.products.starting-at') . '</span>'
-            . '<span class="final-price">' . core()->currency($this->getMinimalPrice()) . '</span>';
+        return '<span class="final-price">' . core()->currency($this->getMinimalPrice()) . ' - ' . core()->currency($this->getMaximamPrice()) . '</span>';
     }
 
     /**
@@ -180,7 +179,7 @@ class Grouped extends AbstractType
 
             if (is_string($cartProducts))
                 return $cartProducts;
-                
+
             $products = array_merge($products, $cartProducts);
         }
 

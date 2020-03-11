@@ -550,9 +550,8 @@ abstract class AbstractType
     public function getPriceHtml()
     {
         if ($this->haveSpecialPrice()) {
-            $html = '<div class="sticker sale">' . trans('shop::app.products.sale') . '</div>'
-                . '<span class="regular-price">' . core()->currency($this->product->price) . '</span>'
-                . '<span class="special-price">' . core()->currency($this->getSpecialPrice()) . '</span>';
+            $html = '<span class="regular-price product-card__new-price">' . core()->currency($this->product->price) . '</span>&nbsp;'
+                . '<span class="special-price product-card__old-price">' . core()->currency($this->getSpecialPrice()) . '</span>';
         } else {
             $html = '<span>' . core()->currency($this->product->price) . '</span>';
         }

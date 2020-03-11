@@ -13,7 +13,7 @@ return [
             'views_path' => 'resources/themes/dangnga/views',
             'assets_path' => 'public/themes/dangnga/assets',
             'name' => 'Dangnga',
-            'parent' => 'default'
+            'parent' => 'velocity'
         ],
 
         // 'bliss' => [

@@ -3,6 +3,7 @@
 namespace Webkul\Velocity\Http\Controllers\Shop;
 
 use Cart;
+use DateTime;
 use Webkul\Velocity\Http\Shop\Controllers;
 use Webkul\Checkout\Contracts\Cart as CartModel;
 use Webkul\Product\Repositories\SearchRepository;
@@ -222,11 +223,18 @@ use Webkul\Velocity\Repositories\Product\ProductRepository as VelocityProductRep
 
         $galleryImages = $productImageHelper->getGalleryImages($product);
         $productImage = $productImageHelper->getProductBaseImage($product)['medium_image_url'];
+        $is_sale = false;
+        if ($product->getTypeInstance()->haveSpecialPrice()){
+            $is_sale = true;
+        }
 
         return [
             'name' => $product->name,
             'slug' => $product->url_key,
             'image' => $productImage,
+            'is_new' => $product->new,
+            'is_feature' => $product->featured,
+            'is_sale' => $is_sale,
             'description' => $product->description,
             'shortDescription' => $product->short_description,
             'galleryImages' => $galleryImages,
