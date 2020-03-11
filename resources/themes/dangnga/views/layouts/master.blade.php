@@ -149,7 +149,7 @@
 <script src="{{asset('themes/dangnga/assets/vendor/photoswipe/photoswipe-ui-default.min.js')}}"></script>
 <script src="{{asset('themes/dangnga/assets/vendor/select2/js/select2.min.js')}}"></script>
 <script src="{{asset('themes/dangnga/assets/js/number.js')}}"></script>
-<script src="{{asset('themes/dangnga/assets/js/main.js')}}"></script>
+{{--<script src="{{asset('themes/dangnga/assets/js/main.js')}}"></script>--}}
 <script src="{{asset('themes/dangnga/assets/js/header.js')}}"></script>
 <script src="{{asset('themes/dangnga/assets/js/ovic-mobile-menu.js')}}"></script>
 <script src="{{asset('themes/dangnga/assets/js/mobilemenu.min.js')}}"></script>

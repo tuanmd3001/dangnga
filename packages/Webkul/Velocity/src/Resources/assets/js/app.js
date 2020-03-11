@@ -38,6 +38,7 @@ Vue.component('sidebar-component', require('./UI/components/sidebar'));
 Vue.component("product-card", require("./UI/components/product-card"));
 Vue.component("product-card-dn", require("./UI/components/product-card-dn"));
 Vue.component("wishlist-component", require("./UI/components/wishlist"));
+Vue.component("wishlist-btn", require("./UI/components/wishlist-btn"));
 Vue.component('carousel-component', require('./UI/components/carousel'));
 Vue.component('owl-carousel-wrapper', require('./UI/components/owl-carousel-wrapper'));
 Vue.component('owl-carousel', require('./UI/components/owl-carousel'));

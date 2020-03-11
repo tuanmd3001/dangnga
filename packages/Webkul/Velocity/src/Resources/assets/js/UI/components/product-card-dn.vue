@@ -69,32 +69,13 @@
                     </ul>
                 </div>
                 <div class="product-card__actions">
-                    <div class="product-card__availability">Availability: <span
-                        class="text-success">In Stock</span></div>
+                    <div class="product-card__availability">
+                        Availability:
+                        <span class="text-success">In Stock</span></div>
                     <div class="product-card__prices" v-html="product.priceHTML"></div>
+<!--                    <div class="product-card__buttons" v-html="product.addToCartHtml"></div>-->
                     <div class="product-card__buttons">
-                        <button class="btn btn-primary product-card__addtocart" type="button">Add To
-                            Cart
-                        </button>
-                        <button
-                            class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                            type="button">Add To Cart
-                        </button>
-                        <button
-                            class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
-                            type="button">
-                            <svg width="16px" height="16px">
-                                <use xlink:href="images/sprite.svg#wishlist-16"></use>
-                            </svg>
-                            <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span></button>
-                        <button
-                            class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                            type="button">
-                            <svg width="16px" height="16px">
-                                <use xlink:href="images/sprite.svg#compare-16"></use>
-                            </svg>
-                            <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-                        </button>
+                        <vnode-injector :nodes="getAddToCartHtml()"></vnode-injector>
                     </div>
                 </div>
             </div>
@@ -128,7 +109,6 @@
             getAddToCartHtml: function () {
                 const {render, staticRenderFns} = Vue.compile(this.product.addToCartHtml);
                 const _staticRenderFns = this.$options.staticRenderFns = staticRenderFns;
-
                 try {
                     var output = render.call(this, this.$createElement)
                 } catch (exception) {
@@ -137,6 +117,7 @@
 
                 this.$options.staticRenderFns = _staticRenderFns;
 
+                console.log(output);
                 return output
             }
         },

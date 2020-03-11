@@ -2479,7 +2479,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     margin-top: 24px
 }
 
-.product-card__buttons > :first-child {
+.product-card__buttons button:first-of-type {
     margin-right: auto
 }
 
@@ -2850,7 +2850,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     font-weight: 500
 }
 
-.product-card--layout--list .product-card__addtocart.btn-svg-icon, .product-card--layout--list .product-card__compare.btn-svg-icon, .product-card--layout--list .product-card__wishlist.btn-svg-icon {
+.product-card--layout--list .product-card__addtocart.btn-svg-icon,
+.product-card--layout--list .product-card__compare.btn-svg-icon,
+.product-card--layout--list .product-card__wishlist.btn-svg-icon {
     width: calc(1.875rem + 2px)
 }
 
@@ -11608,6 +11610,10 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 
 .block-products-carousel[data-layout=grid-4] .product-card .product-card__buttons .btn.btn-svg-icon {
     width: calc(1.875rem + 2px)
+}
+
+.block-products-carousel[data-layout=grid-4] .product-card .product-card__buttons .btn.btn-svg-icon.wished {
+    fill: #3d464d;
 }
 
 @media (hover: hover) {
