@@ -216,6 +216,7 @@ use Webkul\Velocity\Repositories\Product\ProductRepository as VelocityProductRep
     {
         $reviewHelper = app('Webkul\Product\Helpers\Review');
         $productImageHelper = app('Webkul\Product\Helpers\ProductImage');
+        $configurableOptionHelper = app('Webkul\Product\Helpers\ConfigurableOption');
 
         $totalReviews = $reviewHelper->getTotalReviews($product);
 
@@ -242,6 +243,9 @@ use Webkul\Velocity\Repositories\Product\ProductRepository as VelocityProductRep
             'totalReviews' => $totalReviews,
             'avgRating' => $avgRatings,
             'firstReviewText' => trans('velocity::app.products.be-first-review'),
+            'is_stock' => $product->haveSufficientQuantity(1),
+            'formAction' => route('cart.add', $product->product_id),
+            'config' => json_encode($configurableOptionHelper->getConfigurationConfig($product)),
             'addToCartHtml' => view('shop::products.add-to-cart', [
                 'product' => $product,
                 'addWishlistClass' => !(isset($list) && $list) ? '' : '',

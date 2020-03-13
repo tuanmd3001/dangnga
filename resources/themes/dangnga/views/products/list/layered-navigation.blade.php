@@ -103,7 +103,6 @@
                         :process-style="sliderConfig.processStyle"
                         :tooltip-style="sliderConfig.tooltipStyle"
                         :max="sliderConfig.max"
-                        :lazy="true"
                         @change="priceRangeUpdated($event)"
                     ></vue-slider>
 

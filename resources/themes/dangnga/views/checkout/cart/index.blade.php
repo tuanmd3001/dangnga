@@ -93,10 +93,10 @@
                                         {{ core()->currency($item->base_price) }}
                                     </td>
                                     <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
-                                        <quantity-changer
+                                        <quantity-changer-dn
                                             :control-name="'qty[{{$item->id}}]'"
                                             quantity="{{ $item->quantity }}">
-                                        </quantity-changer>
+                                        </quantity-changer-dn>
                                     </td>
                                     <td class="cart-table__column cart-table__column--total" data-title="Total">{{ core()->currency( $item->base_total) }}</td>
                                     <td class="cart-table__column cart-table__column--remove">
@@ -157,66 +157,7 @@
         })()
     </script>
 
-    <script type="text/x-template" id="quantity-changer-template">
-        <div class="input-number">
-            <div class="wrap">
-                <input :name="controlName" :value="qty" v-validate="'required|numeric|min_value:1'" data-vv-as="&quot;{{ __('shop::app.products.quantity') }}&quot;" class="form-control input-number__input">
-                <div class="input-number__sub" @click="decreaseQty()"></div>
-                <div class="input-number__add" @click="increaseQty()"></div>
-
-                <span class="control-error" v-if="errors.has(controlName)">@{{ errors.first(controlName) }}</span>
-            </div>
-        </div>
-    </script>
-
     <script>
-        Vue.component('quantity-changer', {
-            template: '#quantity-changer-template',
-
-            inject: ['$validator'],
-
-            props: {
-                controlName: {
-                    type: String,
-                    default: 'quantity'
-                },
-
-                quantity: {
-                    type: [Number, String],
-                    default: 1
-                }
-            },
-
-            data: function() {
-                return {
-                    qty: this.quantity
-                }
-            },
-
-            watch: {
-                quantity: function (val) {
-                    this.qty = val;
-
-                    this.$emit('onQtyUpdated', this.qty)
-                }
-            },
-
-            methods: {
-                decreaseQty: function() {
-                    if (this.qty > 1)
-                        this.qty = parseInt(this.qty) - 1;
-
-                    this.$emit('onQtyUpdated', this.qty)
-                },
-
-                increaseQty: function() {
-                    this.qty = parseInt(this.qty) + 1;
-
-                    this.$emit('onQtyUpdated', this.qty)
-                }
-            }
-        });
-
         function removeLink(message) {
             if (!confirm(message))
                 event.preventDefault();

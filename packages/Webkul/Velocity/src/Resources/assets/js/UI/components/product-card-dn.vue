@@ -32,11 +32,7 @@
     <div class="block-products-carousel__column" v-else>
         <div class="block-products-carousel__cell">
             <div class="product-card">
-                <button class="product-card__quickview" type="button">
-                    <svg width="16px" height="16px">
-                        <use xlink:href="images/sprite.svg#quickview-16"></use>
-                    </svg>
-                    <span class="fake-svg-icon"></span></button>
+                <product-quick-view-btn-dn :quick-view-details="product"></product-quick-view-btn-dn>
                 <div class="product-card__badges-list">
                     <div class="product-card__badge product-card__badge--new" v-if="product.is_new">New</div>
                     <div class="product-card__badge product-card__badge--sale" v-if="product.is_sale">Sale</div>
@@ -73,7 +69,6 @@
                         Availability:
                         <span class="text-success">In Stock</span></div>
                     <div class="product-card__prices" v-html="product.priceHTML"></div>
-<!--                    <div class="product-card__buttons" v-html="product.addToCartHtml"></div>-->
                     <div class="product-card__buttons">
                         <vnode-injector :nodes="getAddToCartHtml()"></vnode-injector>
                     </div>
@@ -117,7 +112,6 @@
 
                 this.$options.staticRenderFns = _staticRenderFns;
 
-                console.log(output);
                 return output
             }
         },

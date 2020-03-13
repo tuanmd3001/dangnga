@@ -1,15 +1,20 @@
 import Vue from 'vue';
 import accounting from 'accounting';
-import VueCarousel from 'vue-owl-carousel';
+import VueCarousel from 'vue-carousel';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
 import messagesAr from 'vee-validate/dist/locale/ar';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 window.axios = require("axios");
 window.VeeValidate = require("vee-validate");
 window.jQuery = window.$ = require("jquery");
 window.BootstrapSass = require("bootstrap-sass");
 
+Vue.use(BootstrapVue);
 Vue.use(VueToast);
 Vue.use(VeeValidate);
 Vue.use(VueCarousel);
@@ -47,7 +52,19 @@ Vue.component('card-list-header', require('./UI/components/card-header'));
 Vue.component('magnify-image', require('./UI/components/image-magnifier'));
 Vue.component('responsive-sidebar', require('./UI/components/responsive-sidebar'));
 Vue.component('product-quick-view', require('./UI/components/product-quick-view'));
+Vue.component('product-gallery', require('./UI/components/product-gallery'));
+Vue.component('product-quick-view-dn', require('./UI/components/product-quick-view-dn'));
 Vue.component('product-quick-view-btn', require('./UI/components/product-quick-view-btn'));
+Vue.component('product-quick-view-btn-dn', require('./UI/components/product-quick-view-btn-dn'));
+Vue.component('product-info', require('./UI/components/product-info'));
+Vue.component('product-sidebar', require('./UI/components/product-sidebar'));
+Vue.component('product-footer', require('./UI/components/product-footer'));
+Vue.component('product-stock', require('./UI/components/product-stock'));
+Vue.component('product-options-form', require('./UI/components/product-options-form'));
+Vue.component('product-options-input', require('./UI/components/product-options-input'));
+Vue.component('product-options-input', require('./UI/components/product-options-input'));
+Vue.component('product-tabs', require('./UI/components/product-tabs'));
+Vue.component('quantity-changer-dn', require('./UI/components/quantity-changer-dn'));
 
 window.eventBus = new Vue();
 

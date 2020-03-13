@@ -9228,6 +9228,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     padding-top: 28px;
     padding-bottom: 24px
 }
+.reviews-list__item:last-child {
+    border-bottom: none;
+}
 
 .reviews-list__item:first-child {
     padding-top: 0
@@ -9339,7 +9342,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .spec__row:first-of-type {
-    border-top: 1px solid #ebebeb
+    /*border-top: 1px solid #ebebeb*/
 }
 
 .spec__name {
@@ -10227,7 +10230,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 
 @media (max-width: 991px) {
     .block {
-        margin-bottom: 30px
+        margin-bottom: 30px;
     }
 }
 
@@ -11497,7 +11500,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .block-products-carousel .owl-stage-outer {
-    margin-bottom: -56px;
+    margin-bottom: -25px;
 }
 
 .slides-container .owl-carousel, .slides-container .owl-stage-outer {
@@ -12995,4 +12998,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 .height-100{
     height: 100%;
+}
+.reviews-view > *:first-child {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
 }

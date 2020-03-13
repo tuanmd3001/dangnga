@@ -1,15 +1,15 @@
 @php
-    $count = $velocityMetaData ? $velocityMetaData->featured_product_count : 10;
+    $count = $velocityMetaData ? $velocityMetaData->new_product_count : 10;
 @endphp
 
-<featured-products></featured-products>
+<new-products></new-products>
 
 @push('scripts')
-    <script type="text/x-template" id="featured-products-template">
-        <div data-layout="grid-4" class="block block-products-carousel" v-if="featuredProducts.length > 0">
+    <script type="text/x-template" id="new-products-template">
+        <div data-layout="grid-4" class="block block-products-carousel" v-if="newProducts.length > 0">
             <div class="container">
                 <div class="block-header">
-                    <h3 class="block-header__title">{{ __('shop::app.home.featured-products') }}</h3>
+                    <h3 class="block-header__title">{{ __('shop::app.home.new-products') }}</h3>
                     <div class="block-header__divider"></div>
                     <div class="block-header__arrows-list">
                         <button class="block-header__arrow block-header__arrow--left" type="button" @click="prev">
@@ -32,7 +32,7 @@
                         layout="grid-4"
                         :ref="this.id"
                     >
-                        <template v-for="(product, index) in featuredProducts">
+                        <template v-for="(product, index) in newProducts">
                             <product-card-dn
                                 :list="list"
                                 :product="product">
@@ -46,26 +46,26 @@
 
     <script type="text/javascript">
         (() => {
-            Vue.component('featured-products', {
-                'template': '#featured-products-template',
+            Vue.component('new-products', {
+                'template': '#new-products-template',
                 data: function () {
                     return {
-                        'id': 'featured_product_carousel',
+                        'id': 'new_product_carousel',
                         'list': false,
-                        'featuredProducts': [],
+                        'newProducts': [],
                     }
                 },
 
                 mounted: function () {
-                    this.getFeaturedProducts();
+                    this.getnewProducts();
                 },
 
                 methods: {
-                    'getFeaturedProducts': function () {
-                        this.$http.get(`${this.baseUrl}/category-details?category-slug=featured-products&count={{ $count }}`)
+                    'getnewProducts': function () {
+                        this.$http.get(`${this.baseUrl}/category-details?category-slug=new-products&count={{ $count }}`)
                             .then(response => {
                                 if (response.data.status)
-                                    this.featuredProducts = response.data.products;
+                                    this.newProducts = response.data.products;
                             })
                             .catch(error => {})
                     },

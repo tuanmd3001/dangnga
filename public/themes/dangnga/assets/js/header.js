@@ -13,20 +13,6 @@
         window.addEventListener('test', null, options);
     } catch(err) {}
 
-    let DIRECTION = null;
-
-    function direction() {
-        if (DIRECTION === null) {
-            DIRECTION = getComputedStyle(document.body).direction;
-        }
-
-        return DIRECTION;
-    }
-
-    function isRTL() {
-        return direction() === 'rtl';
-    }
-
     $(function () {
         /*
         // Touch Click

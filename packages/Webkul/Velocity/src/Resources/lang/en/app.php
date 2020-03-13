@@ -238,6 +238,9 @@ return [
         'short-description' => 'Short Descriptions',
         'recently-viewed' => 'Recently Viewed Products',
         'be-first-review' => 'Be the first to write a review',
+        'availability' => 'Availability',
+        'in-stock' => 'In stock',
+        'out-of-stock' => 'Out of stock',
     ],
 
     'shop' => [

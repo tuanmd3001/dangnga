@@ -15,194 +15,120 @@
 
 {!! view_render_event('bagisto.shop.products.review.before', ['product' => $product]) !!}
 
+<div class="reviews-view">
     @if ($total)
-        @if (isset($accordian) && $accordian)
-            <accordian :active="true">
-                {{-- customer ratings --}}
-                <div slot="header" class="col-lg-12 no-padding">
-                    <h3 class="display-inbl">
-                        {{ __('velocity::app.products.customer-rating') }}
-                    </h3>
-
-                    <i class="rango-arrow"></i>
-                </div>
-
-                <div class="row customer-rating" slot="body">
-                    <div class="row full-width text-center mb30">
-                        <div class="col-lg-12 col-xl-6">
-                            <h4 class="col-lg-12 fs16">{{ $avgRatings }} {{ __('shop::app.reviews.star') }}</h4>
-
-                            <star-ratings
-                                :size="24"
-                                :ratings="{{ $avgStarRating }}"
-                            ></star-ratings>
-
-                            <span class="fs16 fw6 display-block">
-                                {{ __('shop::app.reviews.ratingreviews', [
-                                    'rating' => $avgRatings,
-                                    'review' => $total])
-                                }}
-                            </span>
-
-                            @if (core()->getConfigData('catalog.products.review.guest_review') || auth()->guard('customer')->check())
-                                <a href="{{ route('shop.reviews.create', ['slug' => $product->url_key ]) }}">
-                                    <button type="button" class="theme-btn light">{{ __('velocity::app.products.write-your-review') }}</button>
-                                </a>
-                            @endif
-                        </div>
-
-                        <div class="col-lg-12 col-xl-6">
-
-                            @for ($i = 5; $i >= 1; $i--)
-
-                                <div class="row">
-                                    <span class="col-3 no-padding fs16 fw6">{{ $i }} {{ __('shop::app.reviews.star') }}</span>
-
-                                    <div class="col-7 rating-bar" title="{{ $percentageRatings[$i] }}%">
-                                        <div style="width: {{ $percentageRatings[$i] }}%"></div>
+        <div class="reviews-view__list">
+            <div class="reviews-list">
+                <ol class="reviews-list__content">
+                    @foreach ($reviewHelper->getReviews($product)->paginate(5) as $review)
+                        <li class="reviews-list__item">
+                            <div class="review">
+                                <div class="review__avatar">
+                                    <img src="images/avatars/anonymous.png" alt=""></div>
+                                <div class="review__content">
+                                    <div class="review__author">{{ $review->name ? $review->name . ' - ' : ''}}{{$review->title }} </div>
+                                    <div class="review__rating">
+                                        <star-ratings
+                                            :ratings="{{ $review->rating }}"
+                                            push-class="mr10 fs16 col-lg-12"
+                                        ></star-ratings>
                                     </div>
-
-                                    <span class="col-2 fs16">{{ $countRatings[$i] }}</span>
+                                    <div class="review__text">
+                                        {{ $review->comment }}
+                                    </div>
+                                    <div class="review__date">{{ core()->formatDate($review->created_at, 'd m Y') }}</div>
                                 </div>
-                            @endfor
-
-                        </div>
-                    </div>
-                </div>
-            </accordian>
-        @else
-            <div class="row customer-rating">
-                <div class="row full-width text-center mb30">
-                    <div class="col-lg-12 col-xl-6">
-                        <h3 class="col-lg-12">{{ $avgRatings }} {{ __('shop::app.reviews.star') }}</h3>
-
-                        <star-ratings
-                            :size="24"
-                            :ratings="{{ $avgStarRating }}"
-                        ></star-ratings>
-
-                        <span class="fs16 display-block">
-                            {{ __('shop::app.reviews.ratingreviews', [
-                                'rating' => $avgRatings,
-                                'review' => $total])
-                            }}
-                        </span>
-
-                        @if (core()->getConfigData('catalog.products.review.guest_review') || auth()->guard('customer')->check())
-                            <a href="{{ route('shop.reviews.create', ['slug' => $product->url_key ]) }}">
-                                <button type="button" class="theme-btn light">{{ __('velocity::app.products.write-your-review') }}</button>
-                            </a>
-                        @endif
-                    </div>
-
-                    <div class="col-lg-12 col-xl-6">
-
-                        @for ($i = 5; $i >= 1; $i--)
-
-                            <div class="row">
-                                <span class="col-3 no-padding fs16 fw6">{{ $i }} Star</span>
-
-                                <div class="col-7 rating-bar" title="{{ $percentageRatings[$i] }}%">
-                                    <div style="width: {{ $percentageRatings[$i] }}%"></div>
-                                </div>
-
-                                <span class="col-2 fs16">{{ $countRatings[$i] }}</span>
                             </div>
-                        @endfor
-
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if (isset($accordian) && $accordian)
-            <accordian :title="'{{ __('shop::app.products.total-reviews') }}'" :active="true">
-                {{-- customer reviews --}}
-                <div slot="header" class="col-lg-12 no-padding">
-                    <h3 class="display-inbl">
-                        {{ __('velocity::app.products.reviews-title') }}
-                    </h3>
-
-                    <i class="rango-arrow"></i>
-                </div>
-
-                <div class="customer-reviews" slot="body">
-                    @foreach ($reviewHelper->getReviews($product)->paginate(10) as $review)
-                        <div class="row">
-                            <h4 class="col-lg-12 fs18">{{ $review->title }}</h4>
-
-                            <star-ratings
-                                :ratings="{{ $review->rating }}"
-                                push-class="mr10 fs16 col-lg-12"
-                            ></star-ratings>
-
-                            <div class="review-description col-lg-12">
-                                <span>{{ $review->comment }}</span>
-                            </div>
-
-                            <div class="col-lg-12 mt5">
-                                <span>{{ __('velocity::app.products.review-by') }} -</span>
-
-                                <span class="fs16 fw6">
-                                    {{ $review->name }},
-                                </span>
-
-                                <span>{{ core()->formatDate($review->created_at, 'F d, Y') }}
-                                </span>
-                            </div>
-                        </div>
+                        </li>
                     @endforeach
+                </ol>
+{{--                <div class="reviews-list__pagination">--}}
+{{--                    <ul class="pagination justify-content-center">--}}
+{{--                        <li class="page-item disabled">--}}
+{{--                            <a class="page-link page-link--with-arrow" href="#"--}}
+{{--                                aria-label="Previous">--}}
+{{--                                <svg class="page-link__arrow page-link__arrow--left"--}}
+{{--                                     aria-hidden="true" width="8px" height="13px">--}}
+{{--                                    <use xlink:href="images/sprite.svg#arrow-rounded-left-8x13"></use>--}}
+{{--                                </svg>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="page-item"><a class="page-link" href="#">1</a></li>--}}
+{{--                        <li class="page-item active"><a class="page-link" href="#">2 <span--}}
+{{--                                    class="sr-only">(current)</span></a></li>--}}
+{{--                        <li class="page-item">--}}
+{{--                            <a class="page-link" href="#">3</a></li>--}}
+{{--                        <li class="page-item">--}}
+{{--                            <a class="page-link page-link--with-arrow" href="#" aria-label="Next">--}}
+{{--                                <svg class="page-link__arrow page-link__arrow--right"--}}
+{{--                                     aria-hidden="true" width="8px" height="13px">--}}
+{{--                                    <use xlink:href="images/sprite.svg#arrow-rounded-right-8x13"></use>--}}
+{{--                                </svg>--}}
+{{--                            </a></li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+            </div>
+        </div>
+    @endif
+    @if (core()->getConfigData('catalog.products.review.guest_review') || auth()->guard('customer')->check())
+    <form class="reviews-view__form"
+          method="POST"
+          @submit.prevent="onSubmit"
+          action="{{ route('shop.reviews.store', $product->product_id ) }}">
+        @csrf
+        <h3 class="reviews-view__header">{{ __('shop::app.reviews.write-review') }}</h3>
+        <div class="row">
+            <div class="col-12 col-lg-9 col-xl-8">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="review-stars">{{ __('admin::app.customers.reviews.rating') }}</label>
+                        <select id="review-stars" class="form-control" name="rating">
+                            <option value="5">5 Stars Rating</option>
+                            <option value="4">4 Stars Rating</option>
+                            <option value="3">3 Stars Rating</option>
+                            <option value="2">2 Stars Rating</option>
+                            <option value="1">1 Stars Rating</option>
+                        </select>
+                        <span :class="`control-error ${errors.has('rating') ? '' : 'hide'}`" v-if="errors.has('rating')">
+                            @{{ errors.first('rating') }}
+                        </span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="review-title">{{ __('shop::app.reviews.title') }}</label>
+                        <input type="text" id="review-title" class="form-control" name="title"
+                               v-validate="'required'">
+                        <span :class="`control-error ${errors.has('title') ? '' : 'hide'}`">
+                            @{{ errors.first('title') }}
+                        </span>
+                    </div>
 
-                    <a
-                        href="{{ route('shop.reviews.index', ['slug' => $product->url_key ]) }}"
-                        class="mb20 link-color"
-                    >{{ __('velocity::app.products.view-all-reviews') }}</a>
-                </div>
-            </accordian>
-        @else
-            <h3 class="display-inbl mb20 col-lg-12 no-padding">
-                {{ __('velocity::app.products.reviews-title') }}
-            </h3>
-
-            <div class="customer-reviews">
-                @foreach ($reviewHelper->getReviews($product)->paginate(10) as $review)
-                    <div class="row">
-                        <h4 class="col-lg-12 fs18">{{ $review->title }}</h4>
-
-                        <star-ratings
-                            :ratings="{{ $review->rating }}"
-                            push-class="mr10 fs16 col-lg-12"
-                        ></star-ratings>
-
-                        <div class="review-description col-lg-12">
-                            <span>{{ $review->comment }}</span>
-                        </div>
-
-                        <div class="col-lg-12 mt5">
-                            @if ("{{ $review->name }}")
-                                <span>{{ __('velocity::app.products.review-by') }} -</span>
-
-                                <label>
-                                    {{ $review->name }},
-                                </label>
-                            @endif
-
-                            <span>{{ core()->formatDate($review->created_at, 'F d, Y') }}
+                    @if (core()->getConfigData('catalog.products.review.guest_review') && ! auth()->guard('customer')->user())
+                        <div class="form-group col-md-4">
+                            <label for="review-author">{{ __('shop::app.reviews.name') }}</label>
+                            <input type="text" id="review-author" class="form-control" name="name"
+                                   v-validate="'required'">
+                            <span :class="`control-error ${errors.has('name') ? '' : 'hide'}`">
+                                @{{ errors.first('name') }}
                             </span>
                         </div>
-                    </div>
-                @endforeach
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="review-text">{{ __('admin::app.customers.reviews.comment') }}</label>
+                    <textarea class="form-control" id="review-text" rows="6"
+                              name="comment"
+                              v-validate="'required'"></textarea>
+                        <span :class="`control-error ${errors.has('name') ? '' : 'hide'}`">
+                            @{{ errors.first('comment') }}
+                        </span>
+                </div>
+                <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-primary btn-lg">{{ __('velocity::app.products.submit-review') }}</button>
+                </div>
             </div>
-        @endif
-
-    @else
-        @if (core()->getConfigData('catalog.products.review.guest_review') || auth()->guard('customer')->check())
-            <div class="customer-rating" style="border: none">
-                <a href="{{ route('shop.reviews.create', ['slug' => $product->url_key ]) }}">
-                    <button type="button" class="theme-btn light">{{ __('velocity::app.products.write-your-review') }}</button>
-                </a>
-            </div>
-        @endif
+        </div>
+    </form>
     @endif
+</div>
 
 {!! view_render_event('bagisto.shop.products.review.after', ['product' => $product]) !!}

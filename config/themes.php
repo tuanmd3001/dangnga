@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default' => 'dangnga',
+    'default' => 'velocity',
 
     'themes' => [
         'default' => [

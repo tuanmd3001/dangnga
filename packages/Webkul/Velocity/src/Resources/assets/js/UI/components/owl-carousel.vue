@@ -17,7 +17,6 @@
     import 'owl.carousel';
 
     import events from './owl-carousel-events';
-    let owl;
     export default {
         name: 'VOwlCarousel',
         props: {
@@ -220,7 +219,7 @@
             return {
                 showPrev: false,
                 showNext: true,
-
+                owl: null,
                 prevHandler: 'carousel_prev_' + this.generateUniqueId(),
                 elementHandle: 'carousel_' + this.generateUniqueId(),
                 nextHandler: 'carousel_next_' + this.generateUniqueId(),
@@ -228,7 +227,15 @@
         },
 
         mounted: function () {
-            owl = $('#' + this.elementHandle).owlCarousel({
+            const el = $('#' + this.elementHandle);
+            let that = this;
+            el.on('initialize.owl.carousel', function(event) {
+                that.$emit('initialize', event);
+            });
+            el.on('initialized.owl.carousel', function(event) {
+                that.$emit('initialized', event);
+            });
+            this.owl = el.owlCarousel({
                 items: this.items,
                 margin: this.margin,
                 loop: this.loop,
@@ -280,21 +287,21 @@
             });
 
             $('#' + this.prevHandler).click(function () {
-                owl.trigger('prev.owl.carousel');
+                this.owl.trigger('prev.owl.carousel');
             });
 
             $('#' + this.nextHandler).click(function () {
-                owl.trigger('next.owl.carousel');
+                this.owl.trigger('next.owl.carousel');
             });
 
             events.forEach((eventName) => {
-                owl.on(`${eventName}.owl.carousel`, (event) => {
+                this.owl.on(`${eventName}.owl.carousel`, (event) => {
                     this.$emit(eventName, event);
                 });
             });
 
             if (!this.loop) {
-                owl.on('changed.owl.carousel', (event) => {
+                this.owl.on('changed.owl.carousel', (event) => {
                     // start
                     if (event.item.index === 0) {
                         this.showPrev = false;
@@ -319,13 +326,13 @@
                 return Math.random().toString(36).substring(2, 15);
             },
             next() {
-                if (owl){
-                    owl.trigger('next.owl.carousel', [500]);
+                if (this.owl){
+                    this.owl.trigger('next.owl.carousel', [500]);
                 }
             },
             prev() {
-                if (owl){
-                    owl.trigger('prev.owl.carousel', [500]);
+                if (this.owl){
+                    this.owl.trigger('prev.owl.carousel', [500]);
                 }
             }
         },

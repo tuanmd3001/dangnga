@@ -17,7 +17,7 @@
                 <div class="owl-carousel" id="product-image">
                     @foreach ($images as $index => $thumb)
                         <a href="{{ $thumb['large_image_url'] }}" target="_blank">
-                            <img :lazy="true" src="{{ $thumb['large_image_url'] }}" alt="">
+                            <img src="{{ $thumb['large_image_url'] }}" alt="">
                         </a>
                     @endforeach
                 </div>
@@ -27,7 +27,7 @@
                     @foreach ($images as $index => $thumb)
                         <a href="{{$thumb['small_image_url']}}"
                            class="product-gallery__carousel-item">
-                            <img :lazy="true" class="product-gallery__carousel-image" src="{{$thumb['small_image_url']}}" alt="">
+                            <img class="product-gallery__carousel-image" src="{{$thumb['small_image_url']}}" alt="">
                         </a>
                     @endforeach
                 </div>

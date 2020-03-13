@@ -1,10 +1,21 @@
 {!! view_render_event('bagisto.shop.products.view.stock.before', ['product' => $product]) !!}
 
-<div class="col-12 availability">
-    <div class="product__availability">Tình trạng:
-        {{! $product->haveSufficientQuantity(1) ? '' : '<span class="text-success">Còn hàng</span>' }}
-        {{ $product->haveSufficientQuantity(1) ? '' : '<span class="text-error">Hết hàng</span>' }}
+@if (isset($meta) && $meta)
+    <li class="product__meta-availability">{{__('shop::app.products.availability')}}:
+        @if($product->haveSufficientQuantity(1))
+            <span class="text-success">{{__('shop::app.products.in-stock')}}</span>
+        @else
+            <span class="text-danger">{{__('shop::app.products.out-of-stock')}}</span>
+        @endif
+    </li>
+@else
+    <div class="product__availability">{{__('shop::app.products.availability')}}:
+        @if($product->haveSufficientQuantity(1))
+            <span class="text-success">{{__('shop::app.products.in-stock')}}</span>
+        @else
+            <span class="text-danger">{{__('shop::app.products.out-of-stock')}}</span>
+        @endif
     </div>
-</div>
+@endif
 
 {!! view_render_event('bagisto.shop.products.view.stock.after', ['product' => $product]) !!}

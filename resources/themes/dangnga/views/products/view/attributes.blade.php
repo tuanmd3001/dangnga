@@ -6,45 +6,26 @@
     @endphp
 
     @if ($customAttributeValues && $customAttributeValues[0]['value'])
-        <accordian :title="'{{ __('shop::app.products.specification') }}'" :active="'{{ $active }}' == true ? true : false">
-            <div slot="header">
-                <h3 class="no-margin display-inbl">
-                    {{ __('velocity::app.products.more-infomation') }}
-                </h3>
-                <i class="rango-arrow"></i>
-            </div>
-
-            <div slot="body">
-                <table class="full-specifications">
-
-                    @foreach ($customAttributeValues as $attribute)
-                        <tr>
-                            @if ($attribute['label'])
-                                <td class='fw6'>{{ $attribute['label'] }}</td>
-                            @else
-                                <td>{{ $attribute['admin_name'] }}</td>
-                            @endif
-
-                            @if ($attribute['type'] == 'file' && $attribute['value'])
-                                <td>
-                                    <a  href="{{ route('shop.product.file.download', [$product->product_id, $attribute['id']])}}">
-                                        <i class="icon sort-down-icon download"></i>
-                                    </a>
-                                </td>
-                            @elseif ($attribute['type'] == 'image' && $attribute['value'])
-                                <td>
-                                    <a href="{{ route('shop.product.file.download', [$product->product_id, $attribute['id']])}}">
-                                        <img src="{{ Storage::url($attribute['value']) }}" style="height: 20px; width: 20px;"/>
-                                    </a>
-                                </td>
-                            @else
-                                <td>{{ $attribute['value'] }}</td>
-                            @endif
-                        </tr>
-                    @endforeach
-                </table>
-            </div>
-        </accordian>
+        <div class="spec">
+            @foreach ($customAttributeValues as $attribute)
+                <div class="spec__row">
+                    <div class="spec__name">{{ $attribute['label'] ? $attribute['label'] : $attribute['admin_name'] }}</div>
+                    <div class="spec__value">
+                    @if ($attribute['type'] == 'file' && $attribute['value'])
+                        <a  href="{{ route('shop.product.file.download', [$product->product_id, $attribute['id']])}}">
+                            <i class="icon sort-down-icon download"></i>
+                        </a>
+                    @elseif ($attribute['type'] == 'image' && $attribute['value'])
+                        <a href="{{ route('shop.product.file.download', [$product->product_id, $attribute['id']])}}">
+                            <img src="{{ Storage::url($attribute['value']) }}" style="height: 20px; width: 20px;"/>
+                        </a>
+                    @else
+                        {{ $attribute['value'] }}
+                    @endif
+                    </div>
+                </div>
+            @endforeach
+        </div>
     @endif
 
 {!! view_render_event('bagisto.shop.products.view.attributes.after', ['product' => $product]) !!}
