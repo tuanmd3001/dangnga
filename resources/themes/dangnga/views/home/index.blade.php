@@ -1,5 +1,42 @@
 @extends('shop::layouts.master')
 
+@php
+    $channel = core()->getCurrentChannel();
+
+    $homeSEO = $channel->home_seo;
+
+    if (isset($homeSEO)) {
+        $homeSEO = json_decode($channel->home_seo);
+
+        $metaTitle = $homeSEO->meta_title;
+
+        $metaDescription = $homeSEO->meta_description;
+
+        $metaKeywords = $homeSEO->meta_keywords;
+    }
+@endphp
+
+@section('page_title')
+    {{ isset($metaTitle) ? $metaTitle : "" }}
+@endsection
+
+@section('head')
+
+    @if (isset($homeSEO))
+        @isset($metaTitle)
+            <meta name="title" content="{{ $metaTitle }}" />
+        @endisset
+
+        @isset($metaDescription)
+            <meta name="description" content="{{ $metaDescription }}" />
+        @endisset
+
+        @isset($metaKeywords)
+            <meta name="keywords" content="{{ $metaKeywords }}" />
+        @endisset
+    @endif
+@endsection
+
 @section('content-wrapper')
     <!-- .block-slideshow -->
     <div class="block-slideshow block-slideshow--layout--with-departments block">
@@ -25,8 +62,8 @@
                         </svg>
                     </div>
                     <div class="block-features__content">
-                        <div class="block-features__title">Free Shipping</div>
-                        <div class="block-features__subtitle">For orders from $50</div>
+                        <div class="block-features__title">Miễn phí vận chuyển</div>
+                        <div class="block-features__subtitle">Áp dụng cho đơn hàng nội tỉnh Lào Cai</div>
                     </div>
                 </div>
                 <div class="block-features__divider"></div>
@@ -37,8 +74,8 @@
                         </svg>
                     </div>
                     <div class="block-features__content">
-                        <div class="block-features__title">Support 24/7</div>
-                        <div class="block-features__subtitle">Call us anytime</div>
+                        <div class="block-features__title">Hỗ trợ 24/7</div>
+                        <div class="block-features__subtitle">Gọi cho chúng tôi bất cứ lúc nào</div>
                     </div>
                 </div>
                 <div class="block-features__divider"></div>
@@ -49,8 +86,8 @@
                         </svg>
                     </div>
                     <div class="block-features__content">
-                        <div class="block-features__title">100% Safety</div>
-                        <div class="block-features__subtitle">Only secure payments</div>
+                        <div class="block-features__title">100% an toàn</div>
+                        <div class="block-features__subtitle">Đặt hàng nhanh chóng và bảo mật thông tin khách hàng</div>
                     </div>
                 </div>
                 <div class="block-features__divider"></div>
@@ -61,8 +98,8 @@
                         </svg>
                     </div>
                     <div class="block-features__content">
-                        <div class="block-features__title">Hot Offers</div>
-                        <div class="block-features__subtitle">Discounts up to 90%</div>
+                        <div class="block-features__title">Ưu đãi hấp dẫn</div>
+                        <div class="block-features__subtitle">Khuyến mại lên đến 90%</div>
                     </div>
                 </div>
             </div>

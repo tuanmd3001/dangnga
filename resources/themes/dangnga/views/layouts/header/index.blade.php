@@ -1,4 +1,4 @@
-@inject ('wishListHelper', 'Webkul\Customer\Helpers\Wishlist')
+﻿@inject ('wishListHelper', 'Webkul\Customer\Helpers\Wishlist')
 <?php
 
 $categories = [];
@@ -119,7 +119,7 @@ $cart = cart()->getCart();
             </div>
             <div class="site-header__phone">
                 <div class="site-header__phone-title">Chăm sóc khách hàng</div>
-                <div class="site-header__phone-number">(800) 060-0730</div>
+                <div class="site-header__phone-number">098 272 0011</div>
             </div>
         </div>
         <div class="site-header__nav-panel"><!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
@@ -192,7 +192,7 @@ $cart = cart()->getCart();
                                     <svg class="departments__button-icon" width="18px" height="14px">
                                         <use xlink:href="/images/sprite.svg#menu-18x14"></use>
                                     </svg>
-                                    Danh mục
+                                    Ngành nghề
                                     <svg class="departments__button-arrow" width="9px" height="6px">
                                         <use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use>
                                     </svg>
