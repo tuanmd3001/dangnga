@@ -1,6 +1,7 @@
 /docker-compose-collection
 /bin
 /node_modules
+/bagisto
 /public/storage
 /vendor
 /.idea

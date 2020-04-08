@@ -5006,11 +5006,10 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .mobilemenu__backdrop {
-    position: fixed;
+    position: absolute;
     background: #3d464d;
     opacity: 0;
-    z-index: 99999;
-    display: none;
+    display: block;
     transition: opacity .3s
 }
 .mobilemenu__backdrop.show{
