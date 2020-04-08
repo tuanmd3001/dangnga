@@ -3941,7 +3941,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .departments {
-    width: 255px;
+    width: 275px;
     height: 42px;
     color: #fff;
     position: relative
@@ -5023,7 +5023,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 .mobilemenu__body {
     position: absolute;
     top: 0;
-    width: 290px;
+    width: 340px;
     height: 100%;
     background: #fff;
     transition: transform .3s;

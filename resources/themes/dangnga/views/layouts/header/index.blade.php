@@ -133,78 +133,67 @@ $wishCount = $wishListHelper->getWishListCount();
 								<div class="departments__body" style="height: 458px;">
 									<div class="departments__links-wrapper">
 										<div class="departments__submenus-container">
-											@foreach($categories as $category)
-											<div class="departments__submenu departments__submenu--type--menu">
-												<!-- .menu -->
-												<div class="menu menu--layout--classic">
-													<div class="menu__submenus-container">
-														<div class="menu__submenu">
-															<!-- .menu -->
-															<div class="menu menu--layout--classic">
-																<div class="menu__submenus-container"></div>
-																<ul class="menu__list">
-																	@foreach($category->children as $child_idx => $child)
-																	@if($child->parent_id == $category->id)
-																	<li class="menu__item">
-																		<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-																		<div class="menu__item-submenu-offset"></div><a class="menu__item-link" href="">
-																			{{$child->name}}
-																		</a>
-																	</li>
-																	@endif
-																	@endforeach
-																</ul>
-															</div><!-- .menu / end -->
-														</div>
-														
-													</div>
-													<ul class="menu__list">
-														<li class="menu__item">
-															<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-															<div class="menu__item-submenu-offset"></div><a class="menu__item-link" href="">
-																Soldering Equipment
-																<svg class="menu__item-arrow" width="6px" height="9px">
-																	<use xlink:href="images/sprite.svg#arrow-rounded-right-6x9"></use>
-																</svg>
-															</a>
-														</li>
-														<li class="menu__item">
-															<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-															<div class="menu__item-submenu-offset"></div><a class="menu__item-link" href="">Light Bulbs</a>
-														</li>
-														<li class="menu__item">
-															<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-															<div class="menu__item-submenu-offset"></div><a class="menu__item-link" href="">Batteries</a>
-														</li>
-														<li class="menu__item">
-															<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-															<div class="menu__item-submenu-offset"></div><a class="menu__item-link" href="">Light Fixtures</a>
-														</li>
-														<li class="menu__item">
-															<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-															<div class="menu__item-submenu-offset"></div><a class="menu__item-link" href="">Warm Floor</a>
-														</li>
-														<li class="menu__item">
-															<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-															<div class="menu__item-submenu-offset"></div><a class="menu__item-link" href="">Generators</a>
-														</li>
-														<li class="menu__item">
-															<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-															<div class="menu__item-submenu-offset"></div><a class="menu__item-link" href="">UPS</a>
-														</li>
-													</ul>
-												</div><!-- .menu / end -->
-											</div>
-											@endforeach
 										</div>
 										<ul class="departments__links">
-											<li class="departments__item"><a class="departments__item-link" href="">
-													Electrical
+											@foreach($categories as $category)
+											@if($category->parent_id == 1)
+											@if(count($category->children))
+											<li class="departments__item">
+												<a class="departments__item-link" href="javascript:void(0)">
+													{{$category->name}}
 													<svg class="departments__item-arrow" width="6px" height="9px">
 														<use xlink:href="images/sprite.svg#arrow-rounded-right-6x9"></use>
 													</svg>
 												</a>
+												<div class="departments__submenu departments__submenu--type--menu">
+													<!-- .menu -->
+													<div class="menu menu--layout--classic">
+														<div class="menu__submenus-container"></div>
+														<ul class="menu__list">
+															@foreach($category->children as $child_idx => $child)
+															@if($child->parent_id == $category->id)
+															<li class="menu__item">
+																<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+																<div class="menu__item-submenu-offset"></div>
+																<a class="menu__item-link" href="{{$child->url_path}}">
+																	{{$child->name}}
+																	@if(count($child->children))
+																	<svg class="menu__item-arrow" width="6px" height="9px">
+																		<use xlink:href="images/sprite.svg#arrow-rounded-right-6x9"></use>
+																	</svg>
+																	@endif
+																</a>
+																@if(count($child->children))
+																<div class="menu__submenu">
+																	<!-- .menu -->
+																	<div class="menu menu--layout--classic">
+																		<div class="menu__submenus-container"></div>
+																		<ul class="menu__list">
+																			@foreach($child->children as $child_2)
+																			@if ($child_2->parent_id == $child->id)
+																			<li class="menu__item">
+																				<!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+																				<div class="menu__item-submenu-offset"></div>
+																				<a class="menu__item-link" href="{{$child_2->url_path}}">
+																					{{$child_2->name}}
+																				</a>
+																			</li>
+																			@endif
+																			@endforeach
+																		</ul>
+																	</div><!-- .menu / end -->
+																</div>
+																@endif
+															</li>
+															@endif
+															@endforeach
+														</ul>
+													</div><!-- .menu / end -->
+												</div>
 											</li>
+											@endif
+											@endif
+											@endforeach
 										</ul>
 									</div>
 								</div>
@@ -324,53 +313,66 @@ $wishCount = $wishListHelper->getWishListCount();
 <!-- desktop site__header / end -->
 
 <!-- mobilemenu -->
-<div class="header-nav container-vertical-wapper">
-	<div class="header-nav-inner">
-		<div class="box-header-nav">
-			<div class=" container-wapper">
-				<a href="#" class="header-top-menu-mobile"><span class="fa fa-cog" aria-hidden="true"></span></a>
-				<ul id="menu-main-menu" class="main-menu clone-main-menu ovic-clone-mobile-menu box-has-content">
-					@foreach($categories as $category)
-					@if($category->parent_id == 1)
-					@if(count($category->children))
-					<li class="menu-item menu-item-has-children">
-						<a href="#" class="kt-item-title ovic-menu-item-title" title="{{$category->name}}">{{$category->name}}</a>
-						<ul class="sub-menu mega-menu">
+<div class="mobilemenu">
+	<div class="mobilemenu__backdrop"></div>
+	<div class="mobilemenu__body">
+		<div class="mobilemenu__header">
+			<div class="mobilemenu__title text-uppercase text-center">main menu</div>
+			<button type="button" class="mobilemenu__close">
+				<svg width="20px" height="20px">
+					<use xlink:href="images/sprite.svg#cross-20"></use>
+				</svg></button>
+		</div>
+		<div class="mobilemenu__content">
+			<ul class="mobile-links mobile-links--level--0" data-collapse="" data-collapse-opened-class="mobile-links__item--open">
+				@foreach($categories as $category)
+				@if($category->parent_id == 1)
+				@if(count($category->children))
+				<li class="mobile-links__item" data-collapse-item="">
+					<div class="mobile-links__item-title"><a href="" class="mobile-links__item-link">{{$category->name}}</a> <button class="mobile-links__item-toggle" type="button" data-collapse-trigger=""><svg class="mobile-links__item-arrow" width="12px" height="7px">
+								<use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+							</svg></button></div>
+					<div class="mobile-links__item-sub-links" data-collapse-content="">
+						<ul class="mobile-links mobile-links--level--1">
 							@foreach($category->children as $child_idx => $child)
 							@if($child->parent_id == $category->id)
-							<li class="col-xs-12 col-sm-12 col-md-12 col-lg-15">
-								<a href="#" class="sub-menu--title">
-									<span class="number">{{$child_idx + 1}}. </span>
-									{{$child->name}}
-								</a>
+							<li class="mobile-links__item" data-collapse-item="">
+								<div class="mobile-links__item-title"><a href="" class="mobile-links__item-link">
+										{{$child->name}}</a> <button class="mobile-links__item-toggle" type="button" data-collapse-trigger="">
+										@if(count($child->children))
+										<svg class="mobile-links__item-arrow" width="12px" height="7px">
+											<use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+										</svg>
+										@endif
+									</button>
+								</div>
 								@if(count($child->children))
-								<div class="sub-menu--content clearfix">
-									@foreach($child->children as $child_2)
-									@if ($child_2->parent_id == $child->id)
-									<a href="/{{$child_2->url_path}}">
-										<div class="sub-menu--item">
-											<img src="@if ($child_2->image) {{Storage::url($child_2->image)}} @else '/images/categories/category-1.jpg' @endif" alt="">
-											<span class="sub-menu--item--title">{{$child_2->name}}</span>
-										</div>
-									</a>
-									@endif
-									@endforeach
+								<div class="mobile-links__item-sub-links" data-collapse-content="">
+									<ul class="mobile-links mobile-links--level--2">
+										@foreach($child->children as $child_2)
+										@if ($child_2->parent_id == $child->id)
+										<li class="mobile-links__item" data-collapse-item="">
+											<div class="mobile-links__item-title">
+												<a href="/{{$child_2->url_path}}" class="mobile-links__item-link">
+													{{$child_2->name}}
+												</a>
+											</div>
+										</li>
+										@endif
+										@endforeach
+									</ul>
 								</div>
 								@endif
 							</li>
 							@endif
 							@endforeach
 						</ul>
-					</li>
-					@else
-					<li class="menu-item">
-						<a href="/{{$category->url_path}}" class="kt-item-title ovic-menu-item-title" title="{{$category->name}}">{{$category->name}}</a>
-					</li>
-					@endif
-					@endif
-					@endforeach
-				</ul>
-			</div>
+					</div>
+				</li>
+				@endif
+				@endif
+				@endforeach
+			</ul>
 		</div>
 	</div>
 </div>
