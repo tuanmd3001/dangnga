@@ -130,7 +130,7 @@ $wishCount = $wishListHelper->getWishListCount();
 								@else
 								class="departments"
 								@endif>
-								<div class="departments__body" style="height: 458px;">
+								<div class="departments__body">
 									<div class="departments__links-wrapper">
 										<div class="departments__submenus-container">
 										</div>
